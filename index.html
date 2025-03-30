@@ -4,8 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Don't forget</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #aa4b6b;
+            background: -webkit-linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+            background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1000;
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin: 20px auto;
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 3em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .text-box {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            width: 300px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        div[style*="z-index: 9999"][style*="position: fixed"] {
+            display: none !important;
+        }
+    </style>
     <script>
         const resetInterval = 3 * 24 * 60 * 60 * 1000;
+        const totalCountdown = 112 * 24 * 60 * 60 * 1000;
         let startTime = localStorage.getItem("startTime");
 
         if (!startTime) {
@@ -17,7 +70,7 @@
             const now = new Date().getTime();
             const timeElapsed = now - startTime;
 
-            const remainingTime = resetInterval - (timeElapsed % resetInterval);
+            const remainingTime = totalCountdown - (timeElapsed % totalCountdown);
             if (remainingTime <= 0) {
                 startTime = now;
                 localStorage.setItem("startTime", startTime);
@@ -31,7 +84,11 @@
     </script>
 </head>
 <body>
-    <h1>Countdown</h1>
-    <p id="countdown"></p>
+    <div class="content-wrapper">
+        <h1>School Countdown Timer</h1>
+        <div class="text-box">
+            <p id="countdown"></p>
+        </div>
+    </div>
 </body>
 </html>
