@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Don't forget</title>
     <script>
-        const countdownDate = new Date().getTime() + 112 * 24 * 60 * 60 * 1000;
+        const resetInterval = 3 * 24 * 60 * 60 * 1000;
+        let startTime = localStorage.getItem("startTime");
+
+        if (!startTime) {
+            startTime = new Date().getTime();
+            localStorage.setItem("startTime", startTime);
+        }
 
         function updateCountdown() {
             const now = new Date().getTime();
-            const timeLeft = countdownDate - now;
+            const timeElapsed = now - startTime;
 
-            if (timeLeft <= 0) {
-                document.getElementById("countdown").innerHTML = "Time's up!";
-                clearInterval(interval);
-                return;
+            const remainingTime = resetInterval - (timeElapsed % resetInterval);
+            if (remainingTime <= 0) {
+                startTime = now;
+                localStorage.setItem("startTime", startTime);
             }
 
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
             document.getElementById("countdown").innerHTML = days + " days left";
         }
 
