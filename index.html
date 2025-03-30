@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't forget</title>
+    <script>
+        const countdownDate = new Date().getTime() + 112 * 24 * 60 * 60 * 1000;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = countdownDate - now;
+
+            if (timeLeft <= 0) {
+                document.getElementById("countdown").innerHTML = "Time's up!";
+                clearInterval(interval);
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            document.getElementById("countdown").innerHTML = days + " days left";
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+    </script>
+</head>
+<body>
+    <h1>Countdown</h1>
+    <p id="countdown"></p>
+</body>
+</html>
